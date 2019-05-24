@@ -48,7 +48,7 @@ module.exports = {
       type: 'string',
       required: false,
       message: 'Project description',
-      default: 'A weex project',
+      default: 'A mpweex project',
     },
     author: {
       when: 'isNotTest',
@@ -57,16 +57,9 @@ module.exports = {
     },
     weex: {
       when: 'isNotTest',
-      type: 'list',
-      message: 'Select weex web render',
-      choices: [
-        {
-          name:
-            '1.0.35 Current: latest features',
-          value: 'latest',
-          short: 'latest',
-        }
-      ],
+      type: 'confirm',
+      message: 'Weex web render',
+      default: 'latest'
     },
     babel: {
       when: 'isNotTest',

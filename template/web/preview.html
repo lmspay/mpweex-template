@@ -12,9 +12,6 @@
   <script src="./assets/qrcode.js"></script>
 </head>
 <body>
-  <!-- <header class="header center">
-    <h1 class="page-title">Weex Preview</h1>
-  </header> -->
   <div class="content center">
     <main class="main">
       <div class="mock-phone">
@@ -30,7 +27,7 @@
       </div>
       <div class="qrcode-box">
         <a class="qrcode" id="qrcode" target="_blank"></a>
-        <p class="qrcode-tips">Use <a target="_blank" href="https://weex-project.io/playground.html">Weex playground app</a> to scan it.</p>
+        <p class="qrcode-tips">使用 <a target="_blank" href="javascript:void(0);">两码事小程序</a> 扫描</p>
         <div class="pages-box">
 
         </div>
@@ -47,10 +44,12 @@
         var match = location.search.match(reg)
         return match && match[1]
       }
-      function createQRCode (url, wsport) {
+      function createQRCode (baseUrl, page, wsport) {
         var $QR = document.querySelector('#qrcode')
         var QR = qrcode(0, 'L')
-        url += `${wsport ? `?wsport=${wsport}&`: '?'}_wx_tpl=${url}`
+        var url = baseUrl + page
+        url += `${wsport ? `?wsport=${wsport}&`: '?'}_mpweex_baseurl=${baseUrl}`
+        url += '&_mpweex_page=' + page
         $QR.setAttribute('href', url)
         QR.addData(url)
         QR.make()
@@ -77,7 +76,7 @@
         $pages.innerHTML = contents;
       }
       var host = window.location.host;
-      createQRCode(`http://${host}/dist/${page || 'index.js'}`, wsport)
+      createQRCode(`http://${host}/dist/`, `${page || 'index.js'}`, wsport)
     })();
   </script>
 </body>

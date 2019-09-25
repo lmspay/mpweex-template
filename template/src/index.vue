@@ -21,7 +21,7 @@ export default {
   },{{/router}}
   data () {
     return {
-      logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png'
+      logo: 'mpweex://images/logo.png'
     }
   }
 }
@@ -33,8 +33,8 @@ export default {
     align-items: center;
   }
   .logo {
-    width: 424px;
-    height: 200px;
+    width: 200px;
+    height: 185px;
   }
   .greeting {
     text-align: center;

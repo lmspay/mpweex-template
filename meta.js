@@ -58,7 +58,7 @@ module.exports = {
     weex: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'Weex web render',
+      message: 'User default mpweex web render',
       default: 'latest'
     },
     babel: {
@@ -98,6 +98,7 @@ module.exports = {
       when: 'isNotTest',
       type: 'confirm',
       message: 'Use ESLint to lint your code?',
+      default: false
     },
     lintConfig: {
       when: 'isNotTest && lint',
@@ -125,6 +126,7 @@ module.exports = {
       when: 'isNotTest',
       type: 'confirm',
       message: 'Set up unit tests',
+      default: false
     },
     autoInstall: {
       when: 'isNotTest',

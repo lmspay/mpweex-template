@@ -5,6 +5,7 @@ const config = require('./config');
 const helper = require('./helper');
 const glob = require('glob');
 const vueLoaderConfig = require('./vue-loader.conf');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const vueWebTemp = helper.rootNode(config.templateDir);
 const hasPluginInstalled = fs.existsSync(helper.rootNode(config.pluginFilePath));
 const isWin = /^win/.test(process.platform);
@@ -164,7 +165,15 @@ const plugins = [
     banner: '// { "framework": "Vue"} \n',
     raw: true,
     exclude: 'Vue'
-  })
+  }),
+  // copy custom static assets
+  new CopyWebpackPlugin([
+    {
+      from: path.resolve(__dirname, '../static'),
+      to: helper.rootNode('./dist'),
+      ignore: ['.*']
+    }
+  ])
 ];
 
 // Config for compile jsbundle for web.
@@ -211,7 +220,6 @@ const webConfig = {
              * inline style prefixing.
              */
             optimizeSSR: false,
-            {{#if_eq weex "latest"}}
             postcss: [
               // to convert weex exclusive styles.
               require('postcss-plugin-weex')(),
@@ -233,15 +241,6 @@ const webConfig = {
                 }
               }
             ]
-            {{else}}
-            compilerModules: [{
-              postTransformNode: el => {
-                el.staticStyle = `$processStyle(${el.staticStyle})`
-                el.styleBinding = `$processStyle(${el.styleBinding})`
-              }
-            }]
-            {{/if_eq}}
-            
           })
         }],
         exclude: config.excludeModuleReg
